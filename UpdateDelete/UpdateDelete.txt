@@ -1,0 +1,77 @@
+	-- Operadores
+DECLARE @A INT = 10;
+SET @A += 5;   -- O mesmo que SET @A = @A + 5;
+PRINT @A;
+SET @A -= 2;   -- O mesmo que SET @A = @A - 2;
+PRINT @A;
+SET @A *= 4;   -- O mesmo que SET @A = @A * 4;
+PRINT @A;
+SET @A /= 2;   -- O mesmo que SET @A = @A / 2;
+PRINT @A;
+GO
+
+-- Alterando dados de uma coluna
+USE PEDIDOS;
+
+-- Aumenta o salário de todos os funcionários em 20%
+UPDATE EMPREGADOS
+SET SALARIO = SALARIO * 1.2;
+-- OU
+UPDATE EMPREGADOS
+SET SALARIO *= 1.2;
+
+-- Soma 2 na quantidade de dependentes do funcionário 
+-- codigo 5
+UPDATE EMPREGADOS
+SET NUM_DEPEND = NUM_DEPEND + 2
+WHERE CODFUN = 5;
+-- OU
+UPDATE EMPREGADOS
+SET NUM_DEPEND += 2
+WHERE CODFUN = 5;
+
+SELECT * FROM CLIENTES WHERE CODCLI = 5;
+
+-- Alterando os dados do cliente de código 5
+UPDATE CLIENTES
+SET ENDERECO = 'AV. PAULISTA, 1009 - 10 AND',
+    BAIRRO   = 'CERQUEIRA CESAR',
+    CIDADE   = 'SÃO PAULO'
+WHERE CODCLI = 5;
+
+-- A linha a seguir confere o resultado da alteração
+SELECT * FROM CLIENTES WHERE CODCLI = 5;
+
+SELECT * FROM PRODUTOS
+WHERE COD_TIPO = 5;
+
+-- Alterando os dados do grupo de produtos
+UPDATE PRODUTOS SET QTD_ESTIMADA = QTD_REAL,
+                    CLAS_FISC = '96082000',
+                    IPI = 8
+WHERE COD_TIPO = 5;
+
+-- A linha a seguir confere o resultado da alteração
+SELECT * FROM PRODUTOS
+WHERE COD_TIPO = 5;
+
+SELECT * INTO EMPREGADOS_TMP FROM EMPREGADOS;
+
+SELECT * FROM EMPREGADOS_TMP WHERE SALARIO > 5000;
+--
+DELETE FROM EMPREGADOS_TMP WHERE SALARIO > 5000;
+-- 
+
+SELECT * FROM EMPREGADOS_TMP WHERE SALARIO > 5000;
+
+SELECT * FROM EMPREGADOS_TMP WHERE CODFUN IN (3,5,7);
+--
+DELETE FROM EMPREGADOS_TMP WHERE CODFUN IN (3,5,7);
+
+SELECT * FROM EMPREGADOS_TMP WHERE CODFUN IN (3,5,7);
+
+DELETE FROM EMPREGADOS_TMP;
+-- OU
+TRUNCATE TABLE EMPREGADOS_TMP;
+--
+SELECT * FROM EMPREGADOS_TMP;
